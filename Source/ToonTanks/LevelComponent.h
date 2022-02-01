@@ -46,5 +46,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float ProjectileDamageGainPerLevel = 5.f;
 
+	UPROPERTY(EditAnywhere, Category = "Widgets")
+	TSubclassOf<UUserWidget> LevelUpWidgetTemplate;
+
 	void UpgradeLevel(int32 NewLevel);
 };

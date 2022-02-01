@@ -3,6 +3,9 @@
 
 #include "LevelComponent.h"
 
+#include "Blueprint/UserWidget.h"
+#include "Kismet/GameplayStatics.h"
+
 ULevelComponent::ULevelComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
@@ -13,6 +16,11 @@ ULevelComponent::ULevelComponent()
 void ULevelComponent::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if (!LevelUpWidgetTemplate)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Level Up Widget not found in %s!"), *GetOwner()->GetName());
+	}
 }
 
 float ULevelComponent::GetProjectileDamage()
@@ -44,8 +52,14 @@ void ULevelComponent::AddXP(int32 NewXP)
 void ULevelComponent::UpgradeLevel(int32 NewLevel)
 {
 	Level = NewLevel;
-	UE_LOG(LogTemp, Warning, TEXT("New Level: %d"), Level);
+
 	OnLevelUp.Broadcast(Level);
+
+	if (LevelUpWidgetTemplate)
+	{
+		UUserWidget* LevelUpWidget = CreateWidget(GetOwner()->GetWorld(), LevelUpWidgetTemplate, FName("Level Up Widget"));
+		LevelUpWidget->AddToViewport(0);
+	}
 }
 
 
