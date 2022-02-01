@@ -28,7 +28,7 @@ public:
 	UPROPERTY()
 	FOnHealthUpdatedDelegate OnHealthUpdated;
 
-	void UpgradeMaxHealthForLevel(int32 Level);
+	void UpgradeMaxHealth();
 
 protected:
 

@@ -22,12 +22,10 @@ float UHealthComponent::GetMaxHealth() const
 	return MaxHealth;
 }
 
-void UHealthComponent::UpgradeMaxHealthForLevel(int32 Level)
+void UHealthComponent::UpgradeMaxHealth()
 {
 	MaxHealth += HealthIncrementPerLevel;
 	Health += HealthIncrementPerLevel;
-
-	UE_LOG(LogTemp, Warning, TEXT("New MaxHealth: %f"), MaxHealth);
 }
 
 void UHealthComponent::BeginPlay()

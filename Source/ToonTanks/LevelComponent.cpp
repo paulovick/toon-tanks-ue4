@@ -3,6 +3,7 @@
 
 #include "LevelComponent.h"
 
+#include "LevelUpWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -41,7 +42,6 @@ int32 ULevelComponent::GetLevel() const
 void ULevelComponent::AddXP(int32 NewXP)
 {
 	XP += NewXP;
-	UE_LOG(LogTemp, Warning, TEXT("New XP: %d"), XP);
 
 	if (GetRequiredXPForLevel(Level + 1) <= XP)
 	{
@@ -57,7 +57,13 @@ void ULevelComponent::UpgradeLevel(int32 NewLevel)
 
 	if (LevelUpWidgetTemplate)
 	{
-		UUserWidget* LevelUpWidget = CreateWidget(GetOwner()->GetWorld(), LevelUpWidgetTemplate, FName("Level Up Widget"));
+		ULevelUpWidget* LevelUpWidget = Cast<ULevelUpWidget>(CreateWidget(GetOwner()->GetWorld(), LevelUpWidgetTemplate, FName("Level Up Widget")));
+		LevelUpWidget->DisplayLevelUp(
+			GetProjectileDamage(),
+			ProjectileDamageGainPerLevel,
+			100.f,
+			10.f
+		);
 		LevelUpWidget->AddToViewport(0);
 	}
 }

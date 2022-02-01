@@ -59,7 +59,7 @@ void ATank::OnLevelUp(int32 NewLevel)
 {
 	if (HealthComponent)
 	{
-		HealthComponent->UpgradeMaxHealthForLevel(NewLevel);
+		HealthComponent->UpgradeMaxHealth();
 	}
 }
 
