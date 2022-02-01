@@ -3,10 +3,8 @@
 
 #include "HealthComponent.h"
 
-#include "BasePawn.h"
 #include "HealthWidgetComponent.h"
 #include "ToonTanksGameMode.h"
-#include "Tower.h"
 #include "Kismet/GameplayStatics.h"
 
 UHealthComponent::UHealthComponent()
@@ -24,11 +22,19 @@ float UHealthComponent::GetMaxHealth() const
 	return MaxHealth;
 }
 
+void UHealthComponent::UpgradeMaxHealthForLevel(int32 Level)
+{
+	MaxHealth += HealthIncrementPerLevel;
+	Health += HealthIncrementPerLevel;
+
+	UE_LOG(LogTemp, Warning, TEXT("New MaxHealth: %f"), MaxHealth);
+}
 
 void UHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
+	MaxHealth = InitialMaxHealth;
 	Health = MaxHealth;
 
 	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::DamageTaken);

@@ -8,7 +8,6 @@
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystemComponent.h"
 
-// Sets default values
 AProjectile::AProjectile()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -25,7 +24,12 @@ AProjectile::AProjectile()
 	TrailParticleSystemComp->SetupAttachment(RootComponent);
 }
 
-// Called when the game starts or when spawned
+void AProjectile::SetDamage(float NewDamage)
+{
+	this->Damage = NewDamage;
+}
+
+
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();

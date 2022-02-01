@@ -18,8 +18,13 @@ public:
 
 protected:
 
+	virtual void BeginPlay() override;
+
 	void RotateTurret(const FVector LookAtTarget) const;
 	void Fire();
+	virtual float GetProjectileDamage();
+	
+	class UHealthComponent* HealthComponent;
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))

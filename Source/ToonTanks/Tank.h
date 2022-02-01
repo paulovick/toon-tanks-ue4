@@ -29,7 +29,9 @@ public:
 	bool bAlive = true;
 
 protected:
+
 	virtual void BeginPlay() override;
+	virtual float GetProjectileDamage() override;
 
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
@@ -49,4 +51,7 @@ private:
 
 	APlayerController* TankPlayerController;
 	class ULevelComponent* LevelComponent;
+
+	UFUNCTION()
+	void OnLevelUp(int32 NewLevel);
 };

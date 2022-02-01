@@ -13,6 +13,7 @@ class TOONTANKS_API AProjectile : public AActor
 	
 public:
 	AProjectile();
+	void SetDamage(float NewDamage);
 
 protected:
 	virtual void BeginPlay() override;
@@ -45,8 +46,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Movement")
 	float MaxSpeed = 1300.f;
-
-	UPROPERTY(EditAnywhere, Category = "Combat")
+	
 	float Damage = 40.f;
 
 	UFUNCTION()

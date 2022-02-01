@@ -26,6 +26,7 @@ public:
 protected:
 
 	virtual void BeginPlay() override;
+	virtual float GetProjectileDamage() override;
 
 private:
 	
@@ -45,11 +46,12 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Widgets")
 	class UWidgetComponent* HealthWidgetComponent;
 
-	class UHealthComponent* HealthComponent;
-
 	UFUNCTION()
 	void OnHealthUpdated(float Health);
 
 	UPROPERTY(EditDefaultsOnly, Category = "XP")
 	int32 ProvidedXP = 10;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float ProjectileDamage = 40.f;
 };

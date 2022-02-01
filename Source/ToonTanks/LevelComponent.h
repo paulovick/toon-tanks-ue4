@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "LevelComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLevelUpDelegate, int32, NewLevel);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TOONTANKS_API ULevelComponent : public UActorComponent
@@ -17,6 +18,10 @@ public:
 	ULevelComponent();
 
 	void AddXP(int32 NewXP);
+	float GetProjectileDamage();
+
+	UPROPERTY()
+	FOnLevelUpDelegate OnLevelUp;
 
 protected:
 
@@ -27,6 +32,12 @@ private:
 	int32 XP = 0;
 	UPROPERTY(EditAnywhere)
 	int32 Level = 1;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float BaseProjectileDamage = 40.f;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float ProjectileDamageGainPerLevel = 5.f;
 
 	void UpgradeLevel(int32 NewLevel);
 	static int32 GetRequiredXPForLevel(int32 Level);

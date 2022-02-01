@@ -35,16 +35,14 @@ void ATower::BeginPlay()
 	{
 		UE_LOG(LogTemp, Error, TEXT("Health widget not found for: %s"), *GetName());
 	}
-
-	HealthComponent = Cast<UHealthComponent>(GetComponentByClass(UHealthComponent::StaticClass()));
+	
 	if (HealthComponent)
 	{
 		HealthComponent->OnHealthUpdated.AddDynamic(this, &ATower::OnHealthUpdated);
-		HealthWidget->UpdateHealth(HealthComponent->GetHealth(), HealthComponent->GetMaxHealth());
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Health component not found for: %s"), *GetName());
+		if (HealthWidget)
+		{
+			HealthWidget->UpdateHealth(HealthComponent->GetHealth(), HealthComponent->GetMaxHealth());
+		}
 	}
 }
 
@@ -62,6 +60,12 @@ int32 ATower::GetProvidedXP()
 {
 	return ProvidedXP;
 }
+
+float ATower::GetProjectileDamage()
+{
+	return ProjectileDamage;
+}
+
 
 void ATower::HandleDestruction()
 {

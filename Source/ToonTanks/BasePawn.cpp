@@ -4,6 +4,7 @@
 #include "BasePawn.h"
 
 #include "DrawDebugHelpers.h"
+#include "HealthComponent.h"
 #include "Projectile.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -28,6 +29,17 @@ ABasePawn::ABasePawn()
 	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
 }
 
+void ABasePawn::BeginPlay()
+{
+	Super::BeginPlay();
+
+	HealthComponent = Cast<UHealthComponent>(GetComponentByClass(UHealthComponent::StaticClass()));
+	if (!HealthComponent)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Health component not found for: %s"), *GetName());
+	}
+}
+
 void ABasePawn::RotateTurret(const FVector LookAtTarget) const
 {
 	const FVector ToTarget = LookAtTarget - TurretMesh->GetComponentLocation();
@@ -36,6 +48,11 @@ void ABasePawn::RotateTurret(const FVector LookAtTarget) const
 	const FRotator LookAtRotation = FRotator(TurretRotation.Pitch, ToTarget.Rotation().Yaw, TurretRotation.Roll);
 
 	TurretMesh->SetWorldRotation(LookAtRotation);
+}
+
+float ABasePawn::GetProjectileDamage()
+{
+	return 0.f;
 }
 
 void ABasePawn::Fire()
@@ -48,6 +65,7 @@ void ABasePawn::Fire()
 		ProjectileSpawnPoint->GetComponentRotation()
 	);
 	Projectile->SetOwner(this);
+	Projectile->SetDamage(GetProjectileDamage());
 }
 
 void ABasePawn::HandleDestruction()

@@ -3,6 +3,7 @@
 
 #include "Tank.h"
 
+#include "HealthComponent.h"
 #include "LevelComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -44,11 +45,35 @@ void ATank::BeginPlay()
 	}
 
 	LevelComponent = Cast<ULevelComponent>(GetComponentByClass(ULevelComponent::StaticClass()));
-	if (!LevelComponent)
+	if (LevelComponent)
+	{
+		LevelComponent->OnLevelUp.AddDynamic(this, &ATank::OnLevelUp);
+	}
+	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("Could not get Level Component!"));
 	}
 }
+
+void ATank::OnLevelUp(int32 NewLevel)
+{
+	if (HealthComponent)
+	{
+		HealthComponent->UpgradeMaxHealthForLevel(NewLevel);
+	}
+}
+
+
+float ATank::GetProjectileDamage()
+{
+	if (LevelComponent)
+	{
+		return LevelComponent->GetProjectileDamage();
+	}
+
+	return 0.f;
+}
+
 
 void ATank::Tick(const float DeltaTime)
 {

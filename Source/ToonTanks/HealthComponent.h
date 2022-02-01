@@ -28,6 +28,8 @@ public:
 	UPROPERTY()
 	FOnHealthUpdatedDelegate OnHealthUpdated;
 
+	void UpgradeMaxHealthForLevel(int32 Level);
+
 protected:
 
 	virtual void BeginPlay() override;
@@ -38,8 +40,12 @@ private:
 	class AToonTanksGameMode* ToonTanksGameMode;
 
 	UPROPERTY(EditAnywhere)
-	float MaxHealth = 100.f;
+	float InitialMaxHealth = 100.f;
+	float MaxHealth = 0.f;
 	float Health = 0.f;
+
+	UPROPERTY(EditAnywhere)
+	float HealthIncrementPerLevel = 40.f;
 
 	UFUNCTION()
 	void DamageTaken(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* Instigator, AActor* DamageCauser);
