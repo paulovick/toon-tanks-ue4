@@ -50,4 +50,6 @@ private:
 	TSubclassOf<class ULevelUpWidget> LevelUpWidgetTemplate;
 
 	void UpgradeLevel(int32 NewLevel);
+
+	class UHealthComponent* HealthComponent;
 };

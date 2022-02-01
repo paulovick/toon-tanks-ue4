@@ -94,10 +94,10 @@ bool ATower::InFireRange()
 	return false;
 }
 
-void ATower::OnHealthUpdated(float Health)
+void ATower::OnHealthUpdated(float Health, float MaxHealth)
 {
 	if (HealthWidget)
 	{
-		HealthWidget->UpdateHealth(Health, HealthComponent->GetMaxHealth());
+		HealthWidget->UpdateHealth(Health, MaxHealth);
 	}
 }

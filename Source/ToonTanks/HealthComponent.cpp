@@ -22,10 +22,17 @@ float UHealthComponent::GetMaxHealth() const
 	return MaxHealth;
 }
 
+float UHealthComponent::GetHealthIncrementPerLevel() const
+{
+	return HealthIncrementPerLevel;
+}
+
 void UHealthComponent::UpgradeMaxHealth()
 {
 	MaxHealth += HealthIncrementPerLevel;
 	Health += HealthIncrementPerLevel;
+
+	OnHealthUpdated.Broadcast(Health, MaxHealth);
 }
 
 void UHealthComponent::BeginPlay()
@@ -51,7 +58,7 @@ void UHealthComponent::DamageTaken(AActor* DamagedActor, float Damage, const UDa
 
 	Health -= Damage;
 
-	OnHealthUpdated.Broadcast(Health);
+	OnHealthUpdated.Broadcast(Health, MaxHealth);
 
 	if (Health <= 0.f)
 	{

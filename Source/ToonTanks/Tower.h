@@ -47,7 +47,7 @@ private:
 	class UWidgetComponent* HealthWidgetComponent;
 
 	UFUNCTION()
-	void OnHealthUpdated(float Health);
+	void OnHealthUpdated(float Health, float MaxHealth);
 
 	UPROPERTY(EditDefaultsOnly, Category = "XP")
 	int32 ProvidedXP = 10;

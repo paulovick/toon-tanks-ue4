@@ -3,6 +3,7 @@
 
 #include "LevelComponent.h"
 
+#include "HealthComponent.h"
 #include "LevelUpWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
@@ -21,6 +22,12 @@ void ULevelComponent::BeginPlay()
 	if (!LevelUpWidgetTemplate)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Level Up Widget not found in %s!"), *GetOwner()->GetName());
+	}
+
+	HealthComponent = Cast<UHealthComponent>(GetOwner()->GetComponentByClass(UHealthComponent::StaticClass()));
+	if (!HealthComponent)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Health Component not found in %s!"), *GetOwner()->GetName());
 	}
 }
 
@@ -55,14 +62,14 @@ void ULevelComponent::UpgradeLevel(int32 NewLevel)
 
 	OnLevelUp.Broadcast(Level);
 
-	if (LevelUpWidgetTemplate)
+	if (LevelUpWidgetTemplate && HealthComponent)
 	{
 		ULevelUpWidget* LevelUpWidget = Cast<ULevelUpWidget>(CreateWidget(GetOwner()->GetWorld(), LevelUpWidgetTemplate, FName("Level Up Widget")));
 		LevelUpWidget->DisplayLevelUp(
 			GetProjectileDamage(),
 			ProjectileDamageGainPerLevel,
-			100.f,
-			10.f
+			HealthComponent->GetMaxHealth(),
+			HealthComponent->GetHealthIncrementPerLevel()
 		);
 		LevelUpWidget->AddToViewport(0);
 	}

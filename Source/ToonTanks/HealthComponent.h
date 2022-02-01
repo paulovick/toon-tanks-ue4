@@ -6,7 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "HealthComponent.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthUpdatedDelegate, float, Health);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHealthUpdatedDelegate, float, Health, float, MaxHealth);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TOONTANKS_API UHealthComponent : public UActorComponent
@@ -24,6 +24,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	float GetMaxHealth() const;
+
+	float GetHealthIncrementPerLevel() const;
 
 	UPROPERTY()
 	FOnHealthUpdatedDelegate OnHealthUpdated;
