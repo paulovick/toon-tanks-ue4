@@ -3,6 +3,7 @@
 
 #include "Tank.h"
 
+#include "LevelComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -41,6 +42,12 @@ void ATank::BeginPlay()
 	{
 		UE_LOG(LogTemp, Error, TEXT("Could not get Player Controller!"));
 	}
+
+	LevelComponent = Cast<ULevelComponent>(GetComponentByClass(ULevelComponent::StaticClass()));
+	if (!LevelComponent)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Could not get Level Component!"));
+	}
 }
 
 void ATank::Tick(const float DeltaTime)
@@ -59,6 +66,15 @@ void ATank::Tick(const float DeltaTime)
 		RotateTurret(HitResult.ImpactPoint);
 	}
 }
+
+void ATank::HandleDestroyedEnemy(int32 ProvidedXP)
+{
+	if (LevelComponent)
+	{
+		LevelComponent->AddXP(ProvidedXP);
+	}
+}
+
 
 void ATank::HandleDestruction()
 {

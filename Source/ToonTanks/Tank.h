@@ -21,6 +21,7 @@ public:
 	
 	virtual void Tick(float DeltaTime) override;
 
+	void HandleDestroyedEnemy(int32 ProvidedXP);
 	void HandleDestruction();
 
 	APlayerController* GetTankPlayerController() const;
@@ -47,4 +48,5 @@ private:
 	void Turn(float Value);
 
 	APlayerController* TankPlayerController;
+	class ULevelComponent* LevelComponent;
 };

@@ -67,6 +67,10 @@ void AToonTanksGameMode::ActorDied(AActor* DeadActor)
 	}
 	else if (ATower* DestroyedTower = Cast<ATower>(DeadActor))
 	{
+		if (Tank)
+		{
+			Tank->HandleDestroyedEnemy(DestroyedTower->GetProvidedXP());
+		}
 		DestroyedTower->HandleDestruction();
 	}
 }

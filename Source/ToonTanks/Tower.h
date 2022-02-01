@@ -21,6 +21,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void HandleDestruction();
+	int32 GetProvidedXP();
 
 protected:
 
@@ -48,4 +49,7 @@ private:
 
 	UFUNCTION()
 	void OnHealthUpdated(float Health);
+
+	UPROPERTY(EditDefaultsOnly, Category = "XP")
+	int32 ProvidedXP = 10;
 };

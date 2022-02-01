@@ -58,6 +58,11 @@ void ATower::Tick(const float DeltaTime)
 	}
 }
 
+int32 ATower::GetProvidedXP()
+{
+	return ProvidedXP;
+}
+
 void ATower::HandleDestruction()
 {
 	Super::HandleDestruction();
