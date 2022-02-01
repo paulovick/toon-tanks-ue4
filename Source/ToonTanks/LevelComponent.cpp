@@ -20,6 +20,16 @@ float ULevelComponent::GetProjectileDamage()
 	return BaseProjectileDamage + Level * ProjectileDamageGainPerLevel;
 }
 
+int32 ULevelComponent::GetXP() const
+{
+	return XP;
+}
+
+int32 ULevelComponent::GetLevel() const
+{
+	return Level;
+}
+
 void ULevelComponent::AddXP(int32 NewXP)
 {
 	XP += NewXP;

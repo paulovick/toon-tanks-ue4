@@ -20,6 +20,13 @@ public:
 	void AddXP(int32 NewXP);
 	float GetProjectileDamage();
 
+	UFUNCTION(BlueprintCallable)
+	int32 GetXP() const;
+	UFUNCTION(BlueprintCallable)
+	int32 GetLevel() const;
+	UFUNCTION(BlueprintCallable)
+	static int32 GetRequiredXPForLevel(int32 Level);
+
 	UPROPERTY()
 	FOnLevelUpDelegate OnLevelUp;
 
@@ -40,5 +47,4 @@ private:
 	float ProjectileDamageGainPerLevel = 5.f;
 
 	void UpgradeLevel(int32 NewLevel);
-	static int32 GetRequiredXPForLevel(int32 Level);
 };
