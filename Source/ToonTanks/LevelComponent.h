@@ -7,6 +7,7 @@
 #include "LevelComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLevelUpDelegate, int32, NewLevel);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnXPUpdated, int32, NewXP, int32, NewLevel);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TOONTANKS_API ULevelComponent : public UActorComponent
@@ -27,8 +28,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static int32 GetRequiredXPForLevel(int32 Level);
 
-	UPROPERTY()
+	UPROPERTY(BlueprintAssignable)
 	FOnLevelUpDelegate OnLevelUp;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnXPUpdated OnXPUpdated;
 
 protected:
 

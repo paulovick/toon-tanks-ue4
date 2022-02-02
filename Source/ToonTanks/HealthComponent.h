@@ -27,7 +27,7 @@ public:
 
 	float GetHealthIncrementPerLevel() const;
 
-	UPROPERTY()
+	UPROPERTY(BlueprintAssignable)
 	FOnHealthUpdatedDelegate OnHealthUpdated;
 
 	void UpgradeMaxHealth();

@@ -29,6 +29,9 @@ void ULevelComponent::BeginPlay()
 	{
 		UE_LOG(LogTemp, Error, TEXT("Health Component not found in %s!"), *GetOwner()->GetName());
 	}
+
+	OnXPUpdated.Broadcast(XP, Level);
+	OnLevelUp.Broadcast(Level);
 }
 
 float ULevelComponent::GetProjectileDamage()
@@ -54,6 +57,8 @@ void ULevelComponent::AddXP(int32 NewXP)
 	{
 		UpgradeLevel(Level + 1);
 	}
+
+	OnXPUpdated.Broadcast(XP, Level);
 }
 
 void ULevelComponent::UpgradeLevel(int32 NewLevel)

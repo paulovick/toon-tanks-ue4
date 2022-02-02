@@ -82,5 +82,8 @@ Content/StarterContent/*
 
 # VSCode Files
 /.vscode/*
-BuildingEscape.code-workspace
+# *.code-workspace
+
+./**/.DS_Store
+.DS_Store
 
