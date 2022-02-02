@@ -82,7 +82,7 @@ Content/StarterContent/*
 
 # VSCode Files
 /.vscode/*
-# *.code-workspace
+*.code-workspace
 
 ./**/.DS_Store
 .DS_Store
