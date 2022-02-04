@@ -38,6 +38,7 @@ private:
 	float StartDelay = 3.f;
 
 	void HandleGameStart();
+	void HandleGameOver(bool bWon);
 
 	UFUNCTION()
 	void ActorEnteredEndZone(AActor* OverlappedActor, AActor* OtherActor);

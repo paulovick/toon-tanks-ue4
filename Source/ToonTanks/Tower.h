@@ -22,6 +22,7 @@ public:
 
 	void HandleDestruction();
 	int32 GetProvidedXP();
+	void DisableFire();
 
 protected:
 
@@ -54,4 +55,6 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float ProjectileDamage = 40.f;
+
+	bool bFireEnabled = true;
 };

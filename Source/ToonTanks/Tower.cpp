@@ -61,6 +61,12 @@ int32 ATower::GetProvidedXP()
 	return ProvidedXP;
 }
 
+void ATower::DisableFire()
+{
+	bFireEnabled = false;
+}
+
+
 float ATower::GetProjectileDamage()
 {
 	return ProjectileDamage;
@@ -76,7 +82,7 @@ void ATower::HandleDestruction()
 void ATower::CheckFireCondition()
 {
 	if (!Tank) return;
-	if (InFireRange() && Tank->bAlive)
+	if (InFireRange() && Tank->bAlive && bFireEnabled)
 	{
 		Fire();
 	}

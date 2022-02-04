@@ -54,6 +54,24 @@ void AToonTanksGameMode::HandleGameStart()
 	}
 }
 
+void AToonTanksGameMode::HandleGameOver(bool bWon)
+{
+	GameOver(bWon);
+
+	TArray<AActor*> Towers;
+	UGameplayStatics::GetAllActorsOfClass(this, ATower::StaticClass(), Towers);
+
+	for (AActor* Actor : Towers)
+	{
+		ATower* Tower = Cast<ATower>(Actor);
+		if (Tower)
+		{
+			Tower->DisableFire();
+		}
+	}
+}
+
+
 void AToonTanksGameMode::ActorDied(AActor* DeadActor)
 {
 	if (DeadActor == Tank)
@@ -63,7 +81,7 @@ void AToonTanksGameMode::ActorDied(AActor* DeadActor)
 		{
 			ToonTanksPlayerController->SetPlayerEnabledState(false);
 		}
-		GameOver(false);
+		HandleGameOver(false);
 	}
 	else if (ATower* DestroyedTower = Cast<ATower>(DeadActor))
 	{
@@ -81,5 +99,5 @@ void AToonTanksGameMode::ActorEnteredEndZone(AActor* OverlappedActor, AActor* Ot
 	{
 		ToonTanksPlayerController->SetPlayerEnabledState(false);
 	}
-	GameOver(true);
+	HandleGameOver(true);
 }
